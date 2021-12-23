@@ -1,0 +1,188 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  padding: 20px;
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
+
+.navbar {
+  display: flex;
+  justify-content: end;
+  background-color: #6b4f4f;
+  padding: 20px;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.left {
+  width: 50%;
+}
+
+.title {
+  color: #6b4f4f;
+  font-family: "Cabin", sans-serif;
+}
+
+.motto {
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 5px;
+}
+
+.main-image {
+  align-self: center;
+  width: 100%;
+  border-radius: 20px;
+  opacity: 0.8;
+}
+
+.right {
+  align-self: center;
+  justify-content: center;
+  width: 50%;
+}
+
+h3,
+h4 {
+  text-align: center;
+  color: #6b4f4f;
+}
+
+.selectors {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.selectors p {
+  margin: 20px;
+}
+
+.btn-add {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  align-self: center;
+  width: 40%;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background-color: #6b4f4f;
+  font-family: "Cabin", sans-serif;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 12px;
+  margin: 20px;
+  width: 90%;
+  height: auto;
+  border-radius: 20px;
+  display: flex;
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.card-left {
+  text-align: center;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 140px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  font-family: Inter;
+  font-size: 22px;
+  align-self: center;
+}
+
+.btn-add-counter,
+.btn-subs-counter {
+  background-color: lightgray;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin: 4px;
+}
+
+.btn-selector {
+  background-color: #ffffff;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.information-checkout {
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  color: #6b4f4f;
+  font-family: "Cabin", sans-serif;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+}
