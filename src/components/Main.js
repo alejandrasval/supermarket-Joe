@@ -8,13 +8,14 @@ import { v4 as uuidv4 } from "uuid";
 import swal from "sweetalert";
 
 const Main = () => {
-
   const shippingCost = 7;
   const { user } = useSelector((store) => store.user);
   const { product } = useSelector((store) => store.product);
   const { total } = useSelector((store) => store.total);
 
   let dispatch = useDispatch();
+
+  const [checked, setChecked] = useState(false);
 
   const handleAuth = () => {
     if (user) {
@@ -31,6 +32,9 @@ const Main = () => {
 
   const calculateTotal = (e, product) => {
     console.log(e.target.checked)
+    if(e.target.checked === true) {
+      dispatch(SubTotal(product))
+    }
     // let selectProduct = e.target.checked;
     // if (!!e.target.checked) {
     //   dispatch(SubTotal(product))
@@ -40,7 +44,7 @@ const Main = () => {
   //Select and Unselect all
 
   const selectAll = () => {
-
+    
   }
 
   const unselectAll = () => {
