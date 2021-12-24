@@ -47,14 +47,12 @@ const Signup = () => {
           <button type="submit" onClick={signUp} className="btnContinue">
             Continuar
           </button>
-          <div className="detail">
-            <p>
+            <p className="login-text">
               ¿Ya tienes una cuenta?
               <Link to="/login" className="signin-link">
                 Inicia sesión
               </Link>
             </p>
-          </div>
         </form>
       </div>
     </div>

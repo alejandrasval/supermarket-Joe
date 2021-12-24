@@ -3,19 +3,17 @@ import "./Main.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutInitiate } from "../redux/actions";
-import { getProducts, Total, SubTotal } from "../redux/actions";
-import { v4 as uuidv4 } from "uuid";
+import { getProducts } from "../redux/actions";
 import swal from "sweetalert";
 
 const Main = () => {
+  const [list, setList] = useState([]);
   const shippingCost = 7;
   const { user } = useSelector((store) => store.user);
   const { product } = useSelector((store) => store.product);
-  const { total } = useSelector((store) => store.total);
+  // const { total } = useSelector((store) => store.total);
 
   let dispatch = useDispatch();
-
-  const [checked, setChecked] = useState(false);
 
   const handleAuth = () => {
     if (user) {
@@ -25,31 +23,30 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    setList(product);
     // eslint-disable-next-line
-  }, []);
-
-  //Checkbox marked
-
-  const calculateTotal = (e, product) => {
-    console.log(e.target.checked)
-    if(e.target.checked === true) {
-      dispatch(SubTotal(product))
-    }
-    // let selectProduct = e.target.checked;
-    // if (!!e.target.checked) {
-    //   dispatch(SubTotal(product))
-    // }
-  };
+  }, [list]);
 
   //Select and Unselect all
 
-  const selectAll = () => {
-    
-  }
+  const [checkedAll, setCheckedAll] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
 
-  const unselectAll = () => {
-    
-  }
+  const handleClick = (e, id) => {
+    setIsChecked([...isChecked, id]);
+    if (!e.target.checked) {
+      setIsChecked(isChecked.filter((item) => item !== id));
+    }
+  };
+
+  const handleSelectAll = () => {
+    setCheckedAll(!checkedAll);
+    setIsChecked(catalogue.map((li) => li.id));
+    console.log(product);
+    if (checkedAll) {
+      setIsChecked([]);
+    }
+  };
 
   //Counter
 
@@ -58,7 +55,6 @@ const Main = () => {
   const add = () => setCounter(counter + 1);
   const substract = () => setCounter(counter - 1);
 
-
   const handleSubmit = () => {
     swal({
       text: "Tu compra se ha realizado con éxito",
@@ -66,9 +62,42 @@ const Main = () => {
     });
   };
 
+  const catalogue = product.map((obj, index) => {
+    return (
+      <div key={index} className="product-card">
+        <input
+          type="checkbox"
+          onChange={(e) => handleClick(e, index)}
+          checked={isChecked.includes(index)}
+        />
+        <div className="card-left">
+          <p className="product-title">{obj.product}</p>
+          <p>{obj.brand}</p>
+          <p>{obj.quantity}</p>
+          <div className="counter">
+            <button
+              className="btn-subs-counter"
+              onClick={substract}
+              style={{ opacity: counter === 1 ? 0.4 : 1 }}
+            >
+              -
+            </button>
+            <p>{counter}</p>
+            <button className="btn-add-counter" onClick={add}>
+              +
+            </button>
+          </div>
+        </div>
+        <div className="card-right">
+          <p>$ {obj.price}</p>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <>
-      <div className="nav-">
+      <div>
         <nav className="navbar">
           <Link to={`${user ? "/" : "/login"}`} className="navbar-link">
             <div onClick={handleAuth} className="navbar-option">
@@ -94,49 +123,24 @@ const Main = () => {
             <h4>Ingredientes</h4>
             <h3>Risotto de setas (vegano)</h3>
             <div className="selectors">
-              <button className="btn-selector" onClick={selectAll}>Seleccionar todo</button>
-              <button className="btn-selector" onClick={unselectAll}>Deseleccionar todo</button>
+              <input
+                type="checkbox"
+                className="btn-selector"
+                onChange={handleSelectAll}
+                checked={checkedAll}
+              />
+              Seleccionar todo
             </div>
-            {product.map((obj) => (
-              <div key={uuidv4()} className="product-card">
-                <input
-                  type="checkbox"
-                  onChange={(e) => {
-                    calculateTotal(e, product);
-                  }}
-                />
-                <div className="card-left">
-                  <p className="product-title">{obj.product}</p>
-                  <p>{obj.brand}</p>
-                  <p>{obj.quantity}</p>
-                  <div className="counter">
-                    <button
-                      className="btn-subs-counter"
-                      onClick={substract}
-                      style={{ opacity: counter === 1 ? 0.4 : 1 }}
-                    >
-                      -
-                    </button>
-                    <p>{counter}</p>
-                    <button className="btn-add-counter" onClick={add}>
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="card-right">
-                  <p>$ {obj.price}</p>
-                </div>
-              </div>
-            ))}
+            {catalogue}
             <div className="information-checkout">
-              <p>Items: 1</p>
-              <p>Subtotal: $ 2.95</p>
+              <p>Items:</p>
+              <p>Subtotal: $</p>
               <p>Gastos de envío: $ {shippingCost}</p>
-              <p>Total: $ 9,95</p>
+              <p>Total: $</p>
             </div>
             <div className="btn-add">
               <button type="submit" className="btn" onClick={handleSubmit}>
-                Comprar ingredientes: ${}
+                Comprar ingredientes: $
               </button>
             </div>
           </div>
